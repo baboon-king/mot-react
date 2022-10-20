@@ -1,8 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  NavLink,
+  Outlet,
+  RouterProvider,
+} from "react-router-dom";
 import { RedirectToWelcome1 } from "./components/RedirectToWelcome1";
-import "./index.css";
 
 const router = createBrowserRouter([
   {
@@ -24,19 +28,35 @@ const router = createBrowserRouter([
           },
           {
             path: "1",
-            element: <div>welcome1</div>,
+            element: (
+              <div>
+                welcome1<NavLink to="/welcome/2"> next page</NavLink>
+              </div>
+            ),
           },
           {
             path: "2",
-            element: <div>welcome2</div>,
+            element: (
+              <div>
+                welcome2<NavLink to="/welcome/3"> next page</NavLink>
+              </div>
+            ),
           },
           {
             path: "3",
-            element: <div>welcome3</div>,
+            element: (
+              <div>
+                welcome3<NavLink to="/welcome/4"> next page</NavLink>
+              </div>
+            ),
           },
           {
             path: "4",
-            element: <div>welcome4</div>,
+            element: (
+              <div>
+                welcome4<NavLink to="/welcome/1"> home</NavLink>
+              </div>
+            ),
           },
         ],
       },
