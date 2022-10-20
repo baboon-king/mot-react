@@ -1,33 +1,44 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import { App } from "./App";
-import { ErrorPage } from "./components/ErrorPage";
+import { RedirectToWelcome1 } from "./components/RedirectToWelcome1";
 import "./index.css";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <div>
-        <App />
-        <h2>children page</h2>
-        <Outlet />
-      </div>
-    ),
-    errorElement: <ErrorPage />,
+    element: <Outlet />,
+    errorElement: <RedirectToWelcome1 />,
     children: [
       {
         index: true,
-        element: <div>enter "page" / "page1" to address line </div>,
+        element: <RedirectToWelcome1 />,
       },
       {
-        path: "page",
-        element: <div>page</div>,
-      },
-      {
-        path: "page1",
-        element: <div>page1</div>,
+        path: "welcome",
+        element: <Outlet />,
+        children: [
+          {
+            index: true,
+            element: <RedirectToWelcome1 />,
+          },
+          {
+            path: "1",
+            element: <div>welcome1</div>,
+          },
+          {
+            path: "2",
+            element: <div>welcome2</div>,
+          },
+          {
+            path: "3",
+            element: <div>welcome3</div>,
+          },
+          {
+            path: "4",
+            element: <div>welcome4</div>,
+          },
+        ],
       },
     ],
   },
