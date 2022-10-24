@@ -1,12 +1,11 @@
 import { animated, useTransition } from "@react-spring/web";
-import { ReactNode } from "react";
+import { ReactNode, useRef } from "react";
 
 import { useLocation, useOutlet } from "react-router-dom";
 
-const outletMap: Record<string, ReactNode> = {};
-
 export function WelcomeLayout() {
   const location = useLocation();
+  const outletMap = useRef<Record<string, ReactNode>>({});
 
   const transitions = useTransition(location.pathname, {
     from: {
@@ -24,14 +23,14 @@ export function WelcomeLayout() {
 
   const outlet = useOutlet();
 
-  outletMap[location.pathname] = outlet;
+  outletMap.current[location.pathname] = outlet;
 
   return transitions((style, pathname) => (
     <animated.div style={style} key={pathname}>
       <div
         style={{ textAlign: "center", border: "1px solid", padding: "10px" }}
       >
-        {outletMap[pathname]}
+        {outletMap.current[pathname]}
       </div>
     </animated.div>
   ));
