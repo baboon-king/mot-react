@@ -9,7 +9,12 @@ export function WelcomeLayout() {
   const location = useLocation();
 
   const transitions = useTransition(location.pathname, {
-    from: { transform: "translateX(100%)" },
+    from: {
+      transform:
+        location.pathname === "/welcome/1"
+          ? "translateX(0%)"
+          : "translateX(100%)",
+    },
     enter: { transform: "translateX(0%)" },
     leave: { transform: "translateX(-100%)" },
     config: {
