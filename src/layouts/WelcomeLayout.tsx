@@ -27,9 +27,7 @@ export function WelcomeLayout() {
 
   return transitions((style, pathname) => (
     <animated.div style={style} key={pathname}>
-      <div
-        style={{ textAlign: "center", border: "1px solid", padding: "10px" }}
-      >
+      <div text-center border-1 p-1>
         {outletMap.current[pathname]}
       </div>
     </animated.div>
