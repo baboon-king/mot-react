@@ -32,21 +32,32 @@ export function WelcomeLayout() {
   outletMap.current[location.pathname] = outlet;
 
   return (
-    <div>
-      <header>
-        <div i-fxemoji-peach text-4xl />
-        <h1>雪梨记账</h1>
+    <div h-screen bg-purple-6 p-5 text-xl text-center text-purple-2>
+      <header p-4>
+        <div i-fxemoji-peach text-6xl inline-block />
+        <h1> 雪梨记账 </h1>
       </header>
-      <main>
-        {transitions((style, pathname) => (
-          <animated.div style={style} key={pathname}>
-            {outletMap.current[pathname]}
-          </animated.div>
-        ))}
+
+      <main bg-white rounded-2 flex-1 flex flex-col>
+        <div un-h="15%"></div>
+        <div flex-1>
+          {transitions((style, pathname) => (
+            <animated.div style={style} key={pathname}>
+              {outletMap.current[pathname]}
+            </animated.div>
+          ))}
+        </div>
       </main>
-      <footer>
-        <Link to={WelcomeLinkMap[location.pathname]}>下一页</Link>
-        <Link to="/welcom/2">跳过</Link>
+
+      <footer p-4>
+        <div flex-row text-end>
+          <div w-50vw>
+            <Link to={WelcomeLinkMap[location.pathname]}> 下一页 </Link>
+          </div>
+          <div flex-1>
+            <Link to="/welcom/2"> 跳过 </Link>
+          </div>
+        </div>
       </footer>
     </div>
   );
