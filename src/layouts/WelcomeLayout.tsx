@@ -1,7 +1,13 @@
 import { animated, useTransition } from "@react-spring/web";
 import { ReactNode, useRef } from "react";
 
-import { useLocation, useOutlet } from "react-router-dom";
+import { Link, useLocation, useOutlet } from "react-router-dom";
+
+const WelcomeLinkMap: Record<string, string> = {
+  "/welcome/1": "/welcome/2",
+  "/welcome/2": "/welcome/3",
+  "/welcome/3": "/welcome/4",
+};
 
 export function WelcomeLayout() {
   const location = useLocation();
@@ -25,11 +31,23 @@ export function WelcomeLayout() {
 
   outletMap.current[location.pathname] = outlet;
 
-  return transitions((style, pathname) => (
-    <animated.div style={style} key={pathname}>
-      <div text-center border-1 p-1>
-        {outletMap.current[pathname]}
-      </div>
-    </animated.div>
-  ));
+  return (
+    <div>
+      <header>
+        <div i-fxemoji-peach text-4xl />
+        <h1>雪梨记账</h1>
+      </header>
+      <main>
+        {transitions((style, pathname) => (
+          <animated.div style={style} key={pathname}>
+            {outletMap.current[pathname]}
+          </animated.div>
+        ))}
+      </main>
+      <footer>
+        <Link to={WelcomeLinkMap[location.pathname]}>下一页</Link>
+        <Link to="/welcom/2">跳过</Link>
+      </footer>
+    </div>
+  );
 }
