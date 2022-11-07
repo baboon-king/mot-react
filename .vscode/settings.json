@@ -4,5 +4,5 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-  "cSpell.words": ["Attributify", "Tagify"]
+  "cSpell.words": ["antfu", "Attributify", "Tagify"]
 }

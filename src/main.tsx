@@ -1,3 +1,4 @@
+import "@unocss/reset/antfu.css";
 import "@unocss/reset/normalize.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
