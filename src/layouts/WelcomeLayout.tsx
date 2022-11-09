@@ -11,6 +11,7 @@ const WelcomeLinkMap: Record<string, string> = {
 
 export function WelcomeLayout() {
   const location = useLocation();
+
   const outletMap = useRef<Record<string, ReactNode>>({});
 
   const transitions = useTransition(location.pathname, {
@@ -23,7 +24,7 @@ export function WelcomeLayout() {
     enter: { transform: "translateX(0%)" },
     leave: { transform: "translateX(-100%)" },
     config: {
-      duration: 500,
+      duration: 600,
     },
   });
 
@@ -32,21 +33,28 @@ export function WelcomeLayout() {
   outletMap.current[location.pathname] = outlet;
 
   return (
-    <div h-screen bg-purple-7 p-5 text-xl text-center text-purple-2>
-      <header p-4>
+    <div h-screen bg-purple-7 p-2 text-xl text-center text-purple-2>
+      <header p-6>
         <div i-fxemoji-ghost text-6xl inline-block />
         <h1> 幽灵记账 </h1>
       </header>
 
-      <main bg-white rounded-2 flex-1 flex flex-col>
-        <div un-h="15%"></div>
-        <div flex-1 text-dark-1>
-          {transitions((style, pathname) => (
-            <animated.div style={style} key={pathname}>
+      <main flex flex-1 pos-relative text-dark-1>
+        {transitions((style, pathname) => (
+          <animated.div
+            style={style}
+            key={pathname}
+            pos-absolute
+            w-full
+            h-full
+            p-2
+          >
+            <div flex-1 bg-white rounded-2>
+              <div un-h="15%"></div>
               {outletMap.current[pathname]}
-            </animated.div>
-          ))}
-        </div>
+            </div>
+          </animated.div>
+        ))}
       </main>
 
       <footer p-4>
@@ -55,7 +63,7 @@ export function WelcomeLayout() {
             <Link to={WelcomeLinkMap[location.pathname]}> 下一页 </Link>
           </div>
           <div flex-1>
-            <Link to="/welcom/2"> 跳过 </Link>
+            <Link to="/welcome/1">跳过</Link>
           </div>
         </div>
       </footer>
