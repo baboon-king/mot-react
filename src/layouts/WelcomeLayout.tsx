@@ -32,15 +32,15 @@ export function WelcomeLayout() {
   outletMap.current[location.pathname] = outlet;
 
   return (
-    <div h-screen bg-purple-6 p-5 text-xl text-center text-purple-2>
+    <div h-screen bg-purple-7 p-5 text-xl text-center text-purple-2>
       <header p-4>
-        <div i-fxemoji-peach text-6xl inline-block />
-        <h1> 雪梨记账 </h1>
+        <div i-fxemoji-ghost text-6xl inline-block />
+        <h1> 幽灵记账 </h1>
       </header>
 
       <main bg-white rounded-2 flex-1 flex flex-col>
         <div un-h="15%"></div>
-        <div flex-1>
+        <div flex-1 text-dark-1>
           {transitions((style, pathname) => (
             <animated.div style={style} key={pathname}>
               {outletMap.current[pathname]}

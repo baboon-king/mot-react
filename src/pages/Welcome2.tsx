@@ -1,9 +1,9 @@
-import { NavLink } from "react-router-dom";
-
 export function Welcome2() {
   return (
-    <div>
-      welcome2<NavLink to="/welcome/3"> next page</NavLink>
+    <div items-center>
+      <div i-fxemoji-alarmclock text-9xl mb-8 />
+      <h2>每日提醒</h2>
+      <h2>不会遗漏每一笔账单</h2>
     </div>
   );
 }

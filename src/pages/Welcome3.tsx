@@ -1,9 +1,9 @@
-import { NavLink } from "react-router-dom";
-
 export function Welcome3() {
   return (
-    <div>
-      welcome3<NavLink to="/welcome/4"> next page</NavLink>
+    <div items-center>
+      <div i-fxemoji-stockchart text-9xl mb-8 />
+      <h2>数据可视化</h2>
+      <h2>数据一目了然</h2>
     </div>
   );
 }
