@@ -1,12 +1,18 @@
 import { animated, useTransition } from "@react-spring/web";
-import { ReactNode, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 
-import { Link, useLocation, useOutlet } from "react-router-dom";
+import { Link, useLocation, useNavigate, useOutlet } from "react-router-dom";
+import { useSwipe } from "../hooks/useSwipe";
 
-const WelcomeLinkMap: Record<string, string> = {
+const WelcomeLinkNextMap: Record<string, string> = {
   "/welcome/1": "/welcome/2",
   "/welcome/2": "/welcome/3",
   "/welcome/3": "/welcome/4",
+};
+const WelcomeLinkPrevMap: Record<string, string> = {
+  "/welcome/4": "/welcome/3",
+  "/welcome/3": "/welcome/2",
+  "/welcome/2": "/welcome/1",
 };
 
 export function WelcomeLayout() {
@@ -14,23 +20,65 @@ export function WelcomeLayout() {
 
   const outletMap = useRef<Record<string, ReactNode>>({});
 
+  const mainRef = useRef<HTMLElement>(null);
+
+  const { direction } = useSwipe(mainRef);
+
+  const outlet = useOutlet();
+
+  const nav = useNavigate();
+
+  const first = useRef(true);
+
   const transitions = useTransition(location.pathname, {
-    from: {
-      transform:
-        location.pathname === "/welcome/1"
-          ? "translateX(0%)"
-          : "translateX(100%)",
+    from: () => {
+      const style = {
+        transform: first.current ? "translateX(0%)" : "translateX(100%)",
+      };
+
+      first.current = false;
+
+      if (direction === "left") {
+        style.transform = "translateX(100%)";
+      }
+
+      if (direction === "right") {
+        style.transform = "translateX(-100%)";
+      }
+
+      return style;
     },
     enter: { transform: "translateX(0%)" },
-    leave: { transform: "translateX(-100%)" },
+    leave: () => {
+      const style = {
+        transform: "translateX(-100%)",
+      };
+      if (direction === "left") {
+        style.transform = "translateX(-100%)";
+      }
+      if (direction === "right") {
+        style.transform = "translateX(100%)";
+      }
+
+      return style;
+    },
     config: {
       duration: 600,
     },
   });
-
-  const outlet = useOutlet();
-
   outletMap.current[location.pathname] = outlet;
+
+  useEffect(() => {
+    // TODO: 左滑会触发一次右滑
+    console.log(direction);
+
+    if (direction === "left") {
+      nav(WelcomeLinkNextMap[location.pathname]);
+    }
+    if (direction === "right") {
+      nav(WelcomeLinkPrevMap[location.pathname]);
+    }
+  }, [direction]);
 
   return (
     <div h-screen bg-purple-7 p-2 text-xl text-center text-purple-2>
@@ -39,7 +87,7 @@ export function WelcomeLayout() {
         <h1> 幽灵记账 </h1>
       </header>
 
-      <main flex flex-1 pos-relative text-dark-1>
+      <main flex flex-1 pos-relative text-dark-1 ref={mainRef}>
         {transitions((style, pathname) => (
           <animated.div
             style={style}
@@ -60,7 +108,7 @@ export function WelcomeLayout() {
       <footer p-4>
         <div flex-row text-end>
           <div w-50vw>
-            <Link to={WelcomeLinkMap[location.pathname]}> 下一页 </Link>
+            <Link to={WelcomeLinkNextMap[location.pathname]}> 下一页 </Link>
           </div>
           <div flex-1>
             <Link to="/welcome/1">跳过</Link>
