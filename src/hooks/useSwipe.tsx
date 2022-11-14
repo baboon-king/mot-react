@@ -1,4 +1,4 @@
-import { RefObject, useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import { useEventListener } from "./useEventListener";
 
 export type Direction = "up" | "down" | "left" | "right" | "none";
@@ -14,41 +14,41 @@ const useSwipeDefaultOptions = {
 export const useSwipe = <T extends HTMLElement = HTMLElement>(
   elementRef: RefObject<T | null>,
   options: UseSwipeOptions = {
-    safeDistance: 10,
+    safeDistance: 30,
   }
 ) => {
   const { safeDistance } = { ...useSwipeDefaultOptions, ...options };
 
-  const [direction, SetDirection] = useState<Direction>("none");
+  const [direction, setDirection] = useState<Direction>("none");
 
-  let x = -1;
+  const x = useRef(-1);
 
   useEventListener(elementRef, "touchstart", (event) => {
     event.preventDefault();
-    x = event.touches[0].clientX;
+    x.current = event.touches[0].clientX;
   });
 
   useEventListener(elementRef, "touchmove", (event) => {
     const newX = event.touches[0].clientX;
 
-    const differ = newX - x;
+    const differ = newX - x.current;
 
     if (Math.abs(differ) < safeDistance) {
       return;
     }
 
     if (differ > 0) {
-      SetDirection("right");
+      setDirection("right");
     }
 
     if (differ < 0) {
-      SetDirection("left");
+      setDirection("left");
     }
   });
 
   useEventListener(elementRef, "touchend", (event) => {
-    SetDirection("none");
-    x = -1;
+    setDirection("none");
+    x.current = -1;
   });
 
   return {

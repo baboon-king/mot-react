@@ -69,9 +69,6 @@ export function WelcomeLayout() {
   outletMap.current[location.pathname] = outlet;
 
   useEffect(() => {
-    // TODO: 左滑会触发一次右滑
-    console.log(direction);
-
     if (direction === "left") {
       nav(WelcomeLinkNextMap[location.pathname]);
     }
