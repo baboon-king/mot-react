@@ -12,9 +12,7 @@ export default defineConfig({
   presets: [
     presetUno(),
     presetAttributify(),
-    presetIcons({
-      cdn: "https://esm.sh/",
-    }),
+    presetIcons(),
     presetTypography(),
     presetTagify(),
   ],
