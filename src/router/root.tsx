@@ -1,18 +1,23 @@
 import { RouteObject } from "react-router-dom";
 import { ErrorPage } from "../components/ErrorPage";
-import { RedirectToWelcome1 } from "../components/RedirectToWelcome1";
+import { ValidateHasWelcomeRead } from "../components/ValidateHasWelcomeRead";
 import { MainLayout } from "../layouts/MainLayout";
 import { welcomeRoute } from "./welcome";
 
 export const rootRoutes: RouteObject[] = [
   {
     path: "/",
+    element: <ValidateHasWelcomeRead />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/",
     element: <MainLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        index: true,
-        element: <RedirectToWelcome1 />,
+        path: "home",
+        element: <div>home</div>,
       },
       welcomeRoute,
     ],

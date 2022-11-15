@@ -8,6 +8,7 @@ const WelcomeLinkNextMap: Record<string, string> = {
   "/welcome/1": "/welcome/2",
   "/welcome/2": "/welcome/3",
   "/welcome/3": "/welcome/4",
+  "/welcome/4": "/home",
 };
 const WelcomeLinkPrevMap: Record<string, string> = {
   "/welcome/4": "/welcome/3",
@@ -77,6 +78,16 @@ export function WelcomeLayout() {
     }
   }, [direction]);
 
+  const skip = () => {
+    localStorage.setItem("hasReadAD", "yes");
+  };
+
+  const nextPage = () => {
+    if (location.pathname === "/welcome/4") {
+      localStorage.setItem("hasReadAD", "yes");
+    }
+  };
+
   return (
     <div h-screen bg-purple-7 p-2 text-xl text-center text-purple-2>
       <header p-6>
@@ -105,10 +116,14 @@ export function WelcomeLayout() {
       <footer p-4>
         <div flex-row text-end>
           <div w-50vw>
-            <Link to={WelcomeLinkNextMap[location.pathname]}> 下一页 </Link>
+            <Link to={WelcomeLinkNextMap[location.pathname]} onClick={nextPage}>
+              下一页
+            </Link>
           </div>
           <div flex-1>
-            <Link to="/welcome/1">跳过</Link>
+            <Link to="/home" onClick={skip}>
+              跳过
+            </Link>
           </div>
         </div>
       </footer>

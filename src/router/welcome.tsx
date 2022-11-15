@@ -1,5 +1,4 @@
-import { type RouteObject } from "react-router-dom";
-import { RedirectToWelcome1 } from "../components/RedirectToWelcome1";
+import { redirect, type RouteObject } from "react-router-dom";
 import { WelcomeLayout } from "../layouts/WelcomeLayout";
 import { Welcome1 } from "../pages/Welcome1";
 import { Welcome2 } from "../pages/Welcome2";
@@ -12,7 +11,9 @@ export const welcomeRoute: RouteObject = {
   children: [
     {
       index: true,
-      element: <RedirectToWelcome1 />,
+      loader: () => {
+        return redirect("/welcome/1");
+      },
     },
     {
       path: "1",
