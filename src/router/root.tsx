@@ -2,6 +2,7 @@ import { RouteObject } from "react-router-dom";
 import { ErrorPage } from "../components/ErrorPage";
 import { ValidateHasWelcomeRead } from "../components/ValidateHasWelcomeRead";
 import { MainLayout } from "../layouts/MainLayout";
+import { Home } from "../pages/Home";
 import { welcomeRoute } from "./welcome";
 
 export const rootRoutes: RouteObject[] = [
@@ -17,7 +18,7 @@ export const rootRoutes: RouteObject[] = [
     children: [
       {
         path: "home",
-        element: <div>home</div>,
+        element: <Home />,
       },
       welcomeRoute,
     ],
