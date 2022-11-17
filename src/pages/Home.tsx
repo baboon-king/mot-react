@@ -1,13 +1,13 @@
-import { useBearStore } from "../stores/useBearStore";
+import { useHasReadWelcomesStore } from "../stores/useHasReadWelcomesStore";
 
 export function Home() {
-  const bear = useBearStore();
-  const increase = useBearStore((bear) => bear.increase);
+  const { hasReadWelcomes, setHasReadWelcomes } = useHasReadWelcomesStore();
 
   return (
     <div>
-      <span> {bear.bears}</span>
-      <button onClick={() => increase(1)}>add</button>
+      <span> {hasReadWelcomes ? "true" : "false"}</span>
+      <button onClick={() => setHasReadWelcomes(true)}>true</button>
+      <button onClick={() => setHasReadWelcomes(false)}>false</button>
     </div>
   );
 }
