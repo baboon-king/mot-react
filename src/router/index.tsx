@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import { rootRoutes } from "./root";
 
 export type ErrorResponseDate = unknown;
@@ -13,4 +13,4 @@ export interface ErrorResponse extends Error {
   statusText?: ErrorResponseStatusText;
 }
 
-export const router = createBrowserRouter(rootRoutes);
+export const router = createHashRouter(rootRoutes);
