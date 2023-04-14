@@ -53,5 +53,5 @@ export const useSwipe = <T extends HTMLElement = HTMLElement>(
 
   return {
     direction,
-  };
+  } as const;
 };
